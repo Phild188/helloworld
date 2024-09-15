@@ -1,0 +1,14 @@
+steps:
+  - label: ":mvn: Build"
+    command: "echo mvn clean package"
+    key: build
+
+  - label: ":artifacts: Upload"
+    command: "echo mvn deploy"
+    key: upload
+    depends_on: build
+
+  - label: ":k8s: Deploy"
+    command: "echo kubectl set image"
+    key: deploy
+    depends_on: upload
